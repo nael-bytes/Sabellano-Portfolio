@@ -100,7 +100,7 @@ if (contactForm) {
             const formData = new FormData(contactForm);
             const data = Object.fromEntries(formData.entries());
 
-            const response = await fetch('/api/contact/index', {
+            const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -108,7 +108,12 @@ if (contactForm) {
                 body: JSON.stringify(data)
             });
 
-            const result = await response.json();
+            let result = {};
+            try {
+                result = await response.json();
+            } catch (_) {
+                // response was not JSON; leave result as empty object
+            }
 
             if (response.ok) {
                 // Success message
@@ -118,7 +123,7 @@ if (contactForm) {
             } else {
                 // Error message
                 formMessage.className = 'alert alert-danger mt-3';
-                formMessage.textContent = result.message || 'Sorry, there was a problem sending your message.';
+                formMessage.textContent = result.error || result.message || 'Sorry, there was a problem sending your message.';
             }
         } catch (error) {
             console.error('Error:', error);
