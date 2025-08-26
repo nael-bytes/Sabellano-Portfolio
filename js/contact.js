@@ -24,13 +24,19 @@ document.addEventListener('DOMContentLoaded', function() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      const ok = res.ok;
-      const data = await res.json().catch(() => ({}));
-      if (!ok) throw new Error(data.error || 'Sorry, there was a problem sending your message.');
+      
+      const data = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(data.error || 'Sorry, there was a problem sending your message.');
+      }
+      
+      // Only show success if we get here (no errors thrown)
       status.className = 'alert mt-3 alert-success';
-      status.textContent = 'Message sent! I will get back to you soon.';
+      status.textContent = data.message || 'Message sent! I will get back to you soon.';
       form.reset();
     } catch (err) {
+      console.error('Contact form error:', err);
       status.className = 'alert mt-3 alert-danger';
       status.textContent = err.message || 'Sorry, there was a problem sending your message.';
     } finally {

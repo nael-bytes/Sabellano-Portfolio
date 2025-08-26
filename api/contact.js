@@ -45,11 +45,14 @@ module.exports = async (req, res) => {
 
   try {
     await sgMail.send(msg);
-    return res.status(200).json({ ok: true });
+    return res.status(200).json({ 
+      ok: true,
+      message: 'Message sent successfully! I will get back to you soon.'
+    });
   } catch (error) {
-    console.error('SendGrid error', error?.response?.body || error?.message || error);
+    console.error('SendGrid error:', error?.response?.body || error?.message || error);
     return res.status(500).json({ 
-      error: 'Failed to send email',
+      error: 'Failed to send email. Please try again.',
       details: error?.response?.body || error?.message || error
     });
   }
