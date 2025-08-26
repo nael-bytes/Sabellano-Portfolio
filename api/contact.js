@@ -14,8 +14,8 @@ export default async function handler(req, res) {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
     const msg = {
-        to: 'your-email@example.com', // Replace with your email
-        from: 'your-verified-sender@example.com', // Replace with your SendGrid verified sender
+        to: 'tsabellano04@gmail.com', // Replace with your email
+        from: 'tsabellano13@gmail.com', // Replace with your SendGrid verified sender
         subject: `Portfolio Contact: ${subject}`,
         text: `
 Name: ${name}
