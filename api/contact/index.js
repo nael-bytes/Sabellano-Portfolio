@@ -1,5 +1,11 @@
 const sgMail = require('@sendgrid/mail');
 
+const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || '';
+const TO_EMAIL = process.env.CONTACT_TO_EMAIL || 'tsabellano04@gmail.com';
+const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || 'tsabellano13@gmail.com';
+
+if (SENDGRID_API_KEY) sgMail.setApiKey(SENDGRID_API_KEY);
+
 module.exports = async (req, res) => {
     if (req.method !== 'POST') {
         return res.status(405).json({ message: 'Method not allowed' });
@@ -11,12 +17,20 @@ module.exports = async (req, res) => {
         return res.status(400).json({ message: 'Missing required fields' });
     }
 
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    // Check if SendGrid is configured
+    if (!SENDGRID_API_KEY) {
+        console.error('SENDGRID_API_KEY not configured');
+        return res.status(500).json({ 
+            message: 'Email service not configured. Please contact the administrator.',
+            error: 'SENDGRID_API_KEY not configured'
+        });
+    }
 
     const msg = {
-        to: 'tsabellano04@gmail.com',
-        from: 'tsabellano13@gmail.com',
+        to: TO_EMAIL,
+        from: FROM_EMAIL,
         subject: `Portfolio Contact: ${subject}`,
+        replyTo: email, // Allow replies to go to the sender
         text: `
 Name: ${name}
 Email: ${email}
@@ -37,10 +51,29 @@ ${message}
         return res.status(200).json({ message: 'Email sent successfully' });
     } catch (error) {
         console.error('Error sending email:', error);
+        
+        // Handle specific SendGrid errors
+        if (error.response && error.response.body) {
+            const sendgridError = error.response.body.errors?.[0];
+            if (sendgridError) {
+                if (sendgridError.message.includes('unauthorized')) {
+                    return res.status(401).json({ 
+                        message: 'Email service authentication failed. Please contact the administrator.',
+                        error: 'SendGrid authentication failed'
+                    });
+                }
+                if (sendgridError.message.includes('from address')) {
+                    return res.status(400).json({ 
+                        message: 'Email service configuration error. Please contact the administrator.',
+                        error: 'From address not verified'
+                    });
+                }
+            }
+        }
+        
         return res.status(500).json({ 
-            message: 'Error sending email',
-            error: error.message,
-            details: error.response ? error.response.body : null
+            message: 'Error sending email. Please try again later.',
+            error: error.message
         });
     }
 }
