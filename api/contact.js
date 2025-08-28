@@ -44,16 +44,12 @@ module.exports = async (req, res) => {
   };
 
   try {
-    await sgMail.send(msg);
-    return res.status(200).json({ 
-      ok: true,
-      message: 'Message sent successfully! I will get back to you soon.'
-    });
+    const [response] = await sgMail.send(msg);
+    return res.status(200).json({ ok: true, id: response?.headers?.['x-message-id'] || null });
   } catch (error) {
-    console.error('SendGrid error:', error?.response?.body || error?.message || error);
-    return res.status(500).json({ 
-      error: 'Failed to send email. Please try again.',
-      details: error?.response?.body || error?.message || error
-    });
+    const status = error?.code || error?.response?.statusCode || 500;
+    const body = error?.response?.body || {};
+    console.error('SendGrid error:', status, body);
+    return res.status(status).json({ error: body?.errors?.[0]?.message || error?.message || 'Error sending email' });
   }
 };
