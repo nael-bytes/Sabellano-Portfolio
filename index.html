@@ -1,681 +1,1545 @@
-<!DOCTYPE html>
-<html lang="en">
+/* CSS Variables and base tokens */
+:root {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --primary: #3b82f6;
+  --secondary: #64748b;
+  --muted: #94a3b8;
+  --border: #e2e8f0;
+  --card-bg: #f8fafc;
+  --section-bg: #f1f5f9;
+  --text-muted: #64748b;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, .1);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, .1);
+}
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nathaniel Sabellano | Full-Stack Developer & Creative Professional</title>
-  <meta name="description" content="Nathaniel Sabellano - Full-Stack Developer, Creative Designer, and IT Professional specializing in web development, 3D modeling, and multimedia creation.">
-  <meta name="robots" content="index,follow" />
-  <meta name="theme-color" content="#2563eb" />
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --fg: #f1f5f9;
+  --accent: #3b82f6;
+  --accent-hover: #60a5fa;
+  --primary: #60a5fa;
+  --secondary: #94a3b8;
+  --muted: #64748b;
+  --border: #334155;
+  --card-bg: #1e293b;
+  --section-bg: #0f172a;
+  --text-muted: #94a3b8;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, .3);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, .3);
+}
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Nathaniel Sabellano | Full-Stack Developer & Creative Professional" />
-  <meta property="og:description" content="Full-Stack Developer, Creative Designer, and IT Professional specializing in web development, 3D modeling, and multimedia creation." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/Me.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Nathaniel Sabellano | Full-Stack Developer & Creative Professional" />
-  <meta name="twitter:description" content="Full-Stack Developer, Creative Designer, and IT Professional specializing in web development, 3D modeling, and multimedia creation." />
-  <meta name="twitter:image" content="assets/Me.png" />
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg);
+  color: var(--fg);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  scroll-behavior: smooth;
+  line-height: 1.6;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--primary));
+  border-radius: 2px;
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* Layout */
+section {
+  padding: 5rem 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+/* Ensure images are responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Better responsive grid behavior */
+.row {
+  margin-left: -0.75rem;
+  margin-right: -0.75rem;
+}
+
+.col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12,
+.col-sm, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12,
+.col-md, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12,
+.col-lg, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12,
+.col-xl, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+
+
+/* Navbar */
+.navbar {
+  position: fixed !important;
+  top: 1rem !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50px;
+  padding: 0.75rem 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  z-index: 1030;
+  width: auto !important;
+  min-width: 300px;
+  max-width: 90vw;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-theme="dark"] .navbar {
+  background: rgba(15, 23, 42, 0.8) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Completely override Bootstrap modal body changes */
+body.modal-open {
+  padding-right: 0 !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+/* Navbar container */
+.navbar .container {
+  position: relative !important;
+  transform: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Enhanced glassmorphism effects */
+.navbar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border-radius: 50px;
+  pointer-events: none;
+  z-index: -1;
+  transition: background 0.2s ease;
+}
+
+.navbar::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border-radius: 49px;
+  pointer-events: none;
+  z-index: -1;
+  transition: background 0.2s ease;
+}
+
+[data-theme="dark"] .navbar::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)) !important;
+}
+
+[data-theme="dark"] .navbar::after {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)) !important;
+}
+
+/* Ensure modal doesn't affect navbar positioning */
+.modal {
+  z-index: 1040;
+}
+
+.modal-backdrop {
+  z-index: 1035;
+}
+
+/* Navbar brand */
+.navbar-brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent) !important;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 2;
+}
+
+.navbar-brand:hover {
+  transform: translateY(-1px);
+  transition: transform 0.3s ease;
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  color: var(--fg) !important;
+  margin: 0 0.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  font-size: 0.9rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.navbar-nav .nav-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+  border-radius: 25px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.navbar-nav .nav-link:hover::before {
+  opacity: 1;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--accent) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .navbar-nav .nav-link::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+}
+
+[data-theme="dark"] .navbar-nav .nav-link:hover {
+  background: rgba(59, 130, 246, 0.15);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Navbar toggler for mobile */
+.navbar-toggler {
+  border: none;
+  padding: 0.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--fg);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar-toggler::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.navbar-toggler:hover::before {
+  opacity: 1;
+}
+
+.navbar-toggler:hover {
+  background: rgba(37, 99, 235, 0.15);
+  color: var(--accent);
+  transform: scale(1.05);
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+  outline: none;
+}
+
+[data-theme="dark"] .navbar-toggler {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .navbar-toggler::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+}
+
+/* Navbar collapse animation */
+.navbar-collapse {
+  transition: all 0.2s ease;
+}
+
+/* Hero Section */
+#home {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg) 0%, var(--section-bg) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 120px;
+  /* Add top padding to account for new navbar positioning */
+  width: 100%;
+}
+
+.hero-content {
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  max-width: 800px;
+  padding: 2rem;
+  margin-top: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  /* Add margin to push content down from navbar */
+}
+
+.profile-image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--accent);
+  box-shadow: var(--shadow-lg);
+  transition: transform .3s ease;
+}
+
+.profile-image:hover {
+  transform: scale(1.05);
+}
+
+.profile-image-border {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  opacity: .3;
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-buttons {
+  margin-bottom: 2rem;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+
+
+.scroll-indicator {
+  color: var(--accent);
+  font-size: 1.5rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-10px);
+  }
+
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Buttons */
+.btn {
+  font-weight: 600;
+  padding: .75rem 1.5rem;
+  border-radius: .5rem;
+  transition: all .3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure button text is centered */
+.btn i {
+  margin-right: 0.5rem;
+}
+
+
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--primary));
+  border: none;
+  color: #fff;
+  box-shadow: var(--shadow);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--accent-hover), var(--accent));
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  color: #fff;
+}
+
+.btn-outline-primary {
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+}
+
+.btn-outline-primary:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* About Section */
+.about-features {
+  margin: 2rem 0;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: var(--card-bg);
+  border-radius: .5rem;
+  transition: transform .3s ease;
+}
+
+.feature-item:hover {
+  transform: translateX(10px);
+}
+
+.feature-item i {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  width: 40px;
+  text-align: center;
+}
+
+.about-stats {
+  padding: 2rem;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: transform .3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: .5rem;
+}
+
+.stat-label {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Skills Section */
+.section-bg {
+  background-color: var(--section-bg);
+}
+
+.skill-category-title {
+  font-size: 1.5rem;
+  color: var(--accent);
+  border-bottom: 2px solid var(--border);
+  padding-bottom: .5rem;
+}
+
+.skill-card {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  transition: all .3s ease;
+  height: 100%;
+  border: 1px solid var(--border);
+}
+
+.skill-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent);
+}
+
+.skill-icon {
+  font-size: 3rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.skill-card h4 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.skill-card p {
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: .9rem;
+}
+
+.skill-level {
+  background: var(--border);
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.skill-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--primary));
+  border-radius: 4px;
+  transition: width 1.5s ease;
+  width: 0;
+}
+
+/* Projects Section */
+.project-card {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: all .3s ease;
+  height: 100%;
+  border: 1px solid var(--border);
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.project-card.coming-soon {
+  opacity: .8;
+}
+
+.project-card.coming-soon:hover {
+  transform: none;
+  box-shadow: var(--shadow);
+}
+
+.project-image {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .3s ease;
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.05);
+}
+
+.project-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: var(--section-bg);
+  color: var(--fg);
+}
+
+.project-placeholder i {
+  color: var(--accent);
+  margin-bottom: 1rem;
+  opacity: .8;
+}
+
+.project-placeholder p {
+  color: var(--fg);
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+}
+
+.project-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+.project-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.project-content {
+  padding: 2rem;
+}
+
+.project-content h4 {
+  margin-bottom: 1rem;
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.project-content p {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.tech-tag {
+  background: var(--accent);
+  color: #fff;
+  padding: .25rem .75rem;
+  border-radius: 1rem;
+  font-size: .8rem;
+  font-weight: 500;
+}
+
+/* Coming Soon Button Styling */
+.btn.disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Project Modal Styling */
+.modal-content {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--fg);
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--border);
+  background: var(--section-bg);
+}
+
+.modal-footer {
+  border-top: 1px solid var(--border);
+  background: var(--section-bg);
+}
+
+.modal-title {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.btn-close {
+  filter: var(--theme-filter);
+}
+
+/* Project Modal Content */
+.project-modal-content {
+  text-align: center;
+}
+
+.project-modal-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: .5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.project-modal-details h4 {
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.project-modal-details p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.project-modal-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.project-modal-tech .tech-tag {
+  background: var(--accent);
+  color: #fff;
+  padding: .5rem 1rem;
+  border-radius: 1rem;
+  font-size: .9rem;
+  font-weight: 500;
+}
+
+/* Theme-aware modal close button */
+[data-theme="dark"] .btn-close {
+  filter: invert(1);
+}
+
+/* Experience Section */
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent);
+  transform: translateX(-50%);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: var(--accent);
+  border: 4px solid var(--bg);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.timeline-content {
+  position: relative;
+  width: 45%;
+  padding: 2rem;
+  background: var(--card-bg);
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+  left: 0;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+  left: 55%;
+}
+
+.timeline-header {
+  margin-bottom: 1rem;
+}
+
+.timeline-header h4 {
+  color: var(--accent);
+  margin-bottom: .5rem;
+}
+
+.timeline-company {
+  display: block;
+  font-weight: 600;
+  color: var(--fg);
+  margin-bottom: .25rem;
+}
+
+.timeline-date {
+  display: block;
+  color: var(--text-muted);
+  font-size: .9rem;
+}
+
+.timeline-skills {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.skill-tag {
+  background: var(--section-bg);
+  color: var(--accent);
+  padding: .25rem .75rem;
+  border-radius: 1rem;
+  font-size: .8rem;
+  font-weight: 500;
+  border: 1px solid var(--accent);
+}
+
+/* Contact Section */
+.contact-info {
+  margin-bottom: 3rem;
+}
+
+.contact-item {
+  padding: 1.5rem;
+}
+
+.contact-item i {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.contact-item h5 {
+  margin-bottom: .5rem;
+  color: var(--fg);
+}
+
+.contact-item p {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.contact-form {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  font-weight: 600;
+  color: var(--fg);
+  margin-bottom: .5rem;
+}
+
+.form-control {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  padding: .75rem 1rem;
+  border-radius: .5rem;
+  transition: all .3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Footer */
+footer {
+  background: var(--card-bg);
+  border-top: 1px solid var(--border);
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  transition: all .3s ease;
+  text-decoration: none;
+}
+
+.social-link:hover {
+  background: var(--accent-hover);
+  transform: translateY(-3px);
+  color: #fff;
+}
+
+/* Theme Toggle - Floating Action Button */
+#themeToggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+#themeToggle:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(37, 99, 235, 0.4);
+}
+
+#themeToggle:active {
+  transform: translateY(0);
+}
+
+/* Dark theme FAB adjustments */
+[data-theme="dark"] #themeToggle {
+  background: var(--accent);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+}
+
+[data-theme="dark"] #themeToggle:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 6px 25px rgba(59, 130, 246, 0.5);
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #home {
+    padding-top: 100px;
+    min-height: 100vh;
+  }
   
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script defer src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+  .hero-content {
+    margin-top: 0.5rem;
+    padding: 1.5rem;
+    max-width: 100%;
+  }
   
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  .timeline::before {
+    left: 20px;
+  }
   
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  .timeline-marker {
+    left: 20px;
+  }
+  
+  .timeline-content {
+    width: calc(100% - 60px);
+    left: 60px !important;
+    padding: 1.5rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .hero-buttons .btn {
+    margin: 0;
+  }
+  
+  .skill-card {
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .project-card {
+    margin-bottom: 2rem;
+  }
+  
+  .about-features {
+    margin: 1.5rem 0;
+  }
+  
+  .feature-item {
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .stat-card {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .contact-form {
+    padding: 1.5rem;
+  }
+  
+  .navbar-brand {
+    font-size: 1.25rem;
+  }
+}
 
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/Me.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/Me.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/Me.png">
-  <meta name="theme-color" content="#2563eb">
+@media (max-width: 576px) {
+  #home {
+    padding-top: 90px;
+    min-height: 100vh;
+  }
+  
+  .hero-content {
+    margin-top: 0.25rem;
+    padding: 1rem;
+    max-width: 100%;
+  }
+  
+  section {
+    padding: 3rem 0;
+  }
+  
+  .profile-image {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .profile-image-border {
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+    line-height: 1.1;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .hero-description {
+    font-size: 0.95rem;
+    max-width: 100%;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .lead {
+    font-size: 1.1rem;
+  }
+  
+  .skill-card {
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .skill-icon {
+    font-size: 2.5rem;
+  }
+  
+  .project-card {
+    margin-bottom: 1.5rem;
+  }
+  
+  .project-content {
+    padding: 1.5rem;
+  }
+  
+  .contact-form {
+    padding: 1.25rem;
+  }
+  
+  .timeline-content {
+    padding: 1.25rem;
+    width: calc(100% - 50px);
+    left: 50px !important;
+  }
+  
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
+  
+  .btn-lg {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+  
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/styles.css">
-</head>
+}
 
-<body data-theme="light">
-  <a class="visually-hidden-focusable" href="#main">Skip to content</a>
-  <header>
-    <nav class="navbar navbar-expand-lg fixed-top shadow-sm" aria-label="Primary">
-      <div class="container">
-        <a class="navbar-brand fw-bold" href="#home">
-          <i class="fas fa-code me-2"></i>Nael-Bytes
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+/* Animations */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all .8s ease;
+}
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-            <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
-            <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-            <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
-            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-  <!-- Floating Action Button for Theme Toggle -->
-  <button id="themeToggle" class="btn" aria-label="Toggle theme">
-    <i class="fas fa-moon"></i>
-  </button>
+/* Particle System */
+#tsparticles {
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
 
-  <main id="main">
-    <!-- Hero Section -->
-    <section id="home" class="d-flex align-items-center justify-content-center position-relative text-center">
-      <div id="tsparticles" class="position-absolute top-0 start-0 w-100 h-100"></div>
-      <div class="hero-content">
-        <div class="profile-image-container mb-4">
-          <img src="assets/Me.png" alt="Portrait of Nathaniel Sabellano" class="profile-image" decoding="async">
-          <div class="profile-image-border"></div>
-        </div>
-        <h1 class="hero-title mb-3">Nathaniel Sabellano</h1>
-        <p class="hero-subtitle mb-4">Full-Stack Developer & Creative Professional</p>
-        <div class="hero-description mb-4">
-          <p>Passionate 4th Year BSIT Student specializing in web development, 3D modeling, and multimedia creation.</p>
-        </div>
-        <div class="hero-buttons">
-          <a href="#projects" class="btn btn-primary btn-lg me-3">
-            <i class="fas fa-eye me-2"></i>View My Work
-          </a>
-          <a href="#contact" class="btn btn-outline-primary btn-lg">
-            <i class="fas fa-envelope me-2"></i>Get In Touch
-          </a>
-        </div>
-        <div class="scroll-indicator mt-5">
-          <i class="fas fa-chevron-down"></i>
-        </div>
-      </div>
-    </section>
+/* Ensure all content stays above particles */
+section,
+.card,
+.project-card,
+.skill-card,
+.timeline-content,
+.contact-form {
+  position: relative;
+  z-index: 1;
+}
 
-    <!-- About Me -->
-    <section id="about" class="py-5">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-6 mb-4 mb-lg-0">
-            <h2 class="section-title mb-4">About Me</h2>
-            <p class="lead mb-4">I'm a passionate IT student with a unique blend of technical and creative skills, combining web development expertise with multimedia design capabilities.</p>
-            <div class="about-features">
-              <div class="feature-item">
-                <i class="fas fa-comments text-primary"></i>
-                <span>Excellent Communication Skills</span>
-              </div>
-              <div class="feature-item">
-                <i class="fas fa-lightbulb text-primary"></i>
-                <span>Creative Problem Solving</span>
-              </div>
-              <div class="feature-item">
-                <i class="fas fa-code text-primary"></i>
-                <span>Technical Proficiency</span>
-              </div>
-              <div class="feature-item">
-                <i class="fas fa-users text-primary"></i>
-                <span>Team Collaboration</span>
-              </div>
-            </div>
-            <div class="mt-4">
-              <a href="resume.pdf" class="btn btn-primary" download>
-                <i class="fas fa-download me-2"></i>Download Resume
-              </a>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="about-stats">
-              <div class="row text-center">
-                <div class="col-6 mb-4">
-                  <div class="stat-card">
-                    <div class="stat-number">4+</div>
-                    <div class="stat-label">Years of Study</div>
-                  </div>
-                </div>
-                <div class="col-6 mb-4">
-                  <div class="stat-card">
-                    <div class="stat-number">10+</div>
-                    <div class="stat-label">Technical Skills</div>
-                  </div>
-                </div>
-                <div class="col-6 mb-4">
-                  <div class="stat-card">
-                    <div class="stat-number">5+</div>
-                    <div class="stat-label">Creative Tools</div>
-                  </div>
-                </div>
-                <div class="col-6 mb-4">
-                  <div class="stat-card">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Dedication</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+/* Hero section content should be above particles */
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
 
-    <!-- Skills Section -->
-    <section id="skills" class="py-5 section-bg">
-      <div class="container">
-        <h2 class="section-title text-center mb-5">Technical Skills</h2>
-        
-        <!-- Web Development Skills -->
-        <div class="skill-category mb-5">
-          <h3 class="skill-category-title mb-4">
-            <i class="fas fa-globe text-primary me-2"></i>Web Development
-          </h3>
-          <div class="row g-4">
-            <div class="col-md-3 col-sm-6">
-              <div class="skill-card">
-                <div class="skill-icon">
-                  <i class="fab fa-php"></i>
-                </div>
-                <h4>PHP</h4>
-                <p>Backend development, server-side scripting, and dynamic web applications</p>
-                <div class="skill-level">
-                  <div class="skill-bar" data-level="85"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-              <div class="skill-card">
-                <div class="skill-icon">
-                  <i class="fab fa-html5"></i>
-                </div>
-                <h4>HTML5</h4>
-                <p>Semantic markup, accessibility, and modern web standards</p>
-                <div class="skill-level">
-                  <div class="skill-bar" data-level="90"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-              <div class="skill-card">
-                <div class="skill-icon">
-                  <i class="fab fa-css3-alt"></i>
-                </div>
-                <h4>CSS3</h4>
-                <p>Responsive design, animations, and modern CSS frameworks</p>
-                <div class="skill-level">
-                  <div class="skill-bar" data-level="88"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-              <div class="skill-card">
-                <div class="skill-icon">
-                  <i class="fab fa-js-square"></i>
-                </div>
-                <h4>JavaScript</h4>
-                <p>Frontend interactivity, ES6+, and modern web development</p>
-                <div class="skill-level">
-                  <div class="skill-bar" data-level="82"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
 
-        <!-- Creative & Multimedia Skills -->
-        <div class="skill-category">
-          <h3 class="skill-category-title mb-4">
-            <i class="fas fa-palette text-primary me-2"></i>Creative & Multimedia
-          </h3>
-          <div class="row g-4">
-            <div class="col-md-4 col-sm-6">
-              <div class="skill-card">
-                <div class="skill-icon">
-                  <i class="fas fa-cube"></i>
-                </div>
-                <h4>Blender</h4>
-                <p>3D modeling, animation, and visual effects creation</p>
-                <div class="skill-level">
-                  <div class="skill-bar" data-level="80"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-              <div class="skill-card">
-                <div class="skill-icon">
-                  <i class="fas fa-image"></i>
-                </div>
-                <h4>Adobe Photoshop</h4>
-                <p>Digital image editing, graphic design, and photo manipulation</p>
-                <div class="skill-level">
-                  <div class="skill-bar" data-level="85"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-              <div class="skill-card">
-                <div class="skill-icon">
-                  <i class="fas fa-paint-brush"></i>
-                </div>
-                <h4>Canva</h4>
-                <p>Graphic design, social media content, and marketing materials</p>
-                <div class="skill-level">
-                  <div class="skill-bar" data-level="90"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-              <div class="skill-card">
-                <div class="skill-icon">
-                  <i class="fas fa-video"></i>
-                </div>
-                <h4>DaVinci Resolve</h4>
-                <p>Video editing, color grading, and post-production</p>
-                <div class="skill-level">
-                  <div class="skill-bar" data-level="75"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-              <div class="skill-card">
-                <div class="skill-icon">
-                  <i class="fas fa-mobile-alt"></i>
-                </div>
-                <h4>CapCut</h4>
-                <p>Mobile video editing, social media content, and quick edits</p>
-                <div class="skill-level">
-                  <div class="skill-bar" data-level="88"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-              <div class="skill-card">
-                <div class="skill-icon">
-                  <i class="fas fa-gamepad"></i>
-                </div>
-                <h4>Unity</h4>
-                <p>Game development, 3D environments, and interactive experiences</p>
-                <div class="skill-level">
-                  <div class="skill-bar" data-level="70"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+/* Focus states for accessibility */
+.btn:focus,
+.form-control:focus,
+.nav-link:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-5">
-      <div class="container">
-        <h2 class="section-title text-center mb-5">Featured Projects</h2>
-        
-        <!-- Design Projects -->
-        <div class="skill-category mb-5">
-          <h3 class="skill-category-title mb-4">
-            <i class="fas fa-palette text-primary me-2"></i>Design & Graphics
-          </h3>
-          <div class="row g-4">
-            <div class="col-lg-6">
-              <div class="project-card" data-project="sdo-lrms">
-                <div class="project-image">
-                  <img src="assets/images/announcement.png" alt="SDO LRMS Announcement Pubmat Template" loading="lazy" decoding="async">
-                  <div class="project-overlay">
-                    <div class="project-links">
-                      <button class="btn btn-light btn-sm project-view-btn">
-                        <i class="fas fa-eye me-1"></i>View Details
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-content">
-                  <h4>SDO LRMS Announcement Pubmat Template</h4>
-                  <p>A professional pubmat template designed in Canva for school announcements and events. Created during OJT at School Division Office - Valenzuela City.</p>
-                  <div class="project-tech">
-                    <span class="tech-tag">Canva</span>
-                    <span class="tech-tag">Graphic Design</span>
-                    <span class="tech-tag">Pubmat</span>
-                    <span class="tech-tag">OJT Project</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="col-lg-6">
-              <div class="project-card coming-soon">
-                <div class="project-image">
-                  <div class="project-placeholder">
-                    <i class="fas fa-birthday-cake fa-3x text-muted"></i>
-                    <p class="text-muted mt-2">Celebratory Pubmat</p>
-                  </div>
-                  <div class="project-overlay">
-                    <div class="project-links">
-                      <span class="btn btn-secondary btn-sm disabled">Coming Soon</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-content">
-                  <h4>Celebratory Pubmat Templates</h4>
-                  <p>Various celebratory pubmat designs for school events and special occasions. More templates coming soon!</p>
-                  <div class="project-tech">
-                    <span class="tech-tag">Canva</span>
-                    <span class="tech-tag">Graphic Design</span>
-                    <span class="tech-tag">Celebratory</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+/* Loading animation for skill bars */
+.skill-bar.animate {
+  animation: skillBarFill 1.5s ease-out forwards;
+}
 
-        <!-- Video Projects -->
-        <div class="skill-category mb-5">
-          <h3 class="skill-category-title mb-4">
-            <i class="fas fa-video text-primary me-2"></i>Video & Multimedia
-          </h3>
-          <div class="row g-4">
-            <div class="col-lg-6">
-              <div class="project-card coming-soon">
-                <div class="project-image">
-                  <div class="project-placeholder">
-                    <i class="fas fa-video fa-3x text-muted"></i>
-                    <p class="text-muted mt-2">Video Project</p>
-                  </div>
-                  <div class="project-overlay">
-                    <div class="project-links">
-                      <span class="btn btn-secondary btn-sm disabled">Coming Soon</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-content">
-                  <h4>Video Editing Projects</h4>
-                  <p>Various video editing projects completed during OJT, including promotional content and educational videos.</p>
-                  <div class="project-tech">
-                    <span class="tech-tag">DaVinci Resolve</span>
-                    <span class="tech-tag">CapCut</span>
-                    <span class="tech-tag">Video Editing</span>
-                    <span class="tech-tag">OJT Project</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+@keyframes skillBarFill {
+  to {
+    width: var(--skill-level);
+  }
+}
 
-            <div class="col-lg-6">
-              <div class="project-card coming-soon">
-                <div class="project-image">
-                  <div class="project-placeholder">
-                    <i class="fas fa-photo-video fa-3x text-muted"></i>
-                    <p class="text-muted mt-2">Photo Editing</p>
-                  </div>
-                  <div class="project-overlay">
-                    <div class="project-links">
-                      <span class="btn btn-secondary btn-sm disabled">Coming Soon</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-content">
-                  <h4>Photo Editing Projects</h4>
-                  <p>Photo editing and manipulation work completed during OJT, showcasing Adobe Photoshop skills.</p>
-                  <div class="project-tech">
-                    <span class="tech-tag">Adobe Photoshop</span>
-                    <span class="tech-tag">Photo Editing</span>
-                    <span class="tech-tag">Image Manipulation</span>
-                    <span class="tech-tag">OJT Project</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+/* Additional responsive breakpoints */
+@media (max-width: 1200px) {
+  .container {
+    max-width: 960px;
+  }
+  
+  .hero-content {
+    max-width: 700px;
+  }
+  
+  .profile-image {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .skill-card {
+    padding: 1.75rem;
+  }
+  
+  .project-card {
+    margin-bottom: 1.5rem;
+  }
+}
 
-        <!-- Development Projects -->
-        <div class="skill-category">
-          <h3 class="skill-category-title mb-4">
-            <i class="fas fa-code text-primary me-2"></i>Development & Systems
-          </h3>
-          <div class="row g-4">
-            <div class="col-lg-6">
-              <div class="project-card coming-soon">
-                <div class="project-image">
-                  <div class="project-placeholder">
-                    <i class="fas fa-globe fa-3x text-muted"></i>
-                    <p class="text-muted mt-2">Website Walkthrough</p>
-                  </div>
-                  <div class="project-overlay">
-                    <div class="project-links">
-                      <span class="btn btn-secondary btn-sm disabled">Coming Soon</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-content">
-                  <h4>Website Portal Walkthroughs</h4>
-                  <p>Two completed website portal walkthrough projects demonstrating web development and user experience skills.</p>
-                  <div class="project-tech">
-                    <span class="tech-tag">Web Development</span>
-                    <span class="tech-tag">User Experience</span>
-                    <span class="tech-tag">Portal Design</span>
-                    <span class="tech-tag">OJT Project</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+@media (max-width: 1400px) {
+  .container {
+    max-width: 1140px;
+  }
+  
+  .hero-content {
+    max-width: 800px;
+  }
+  
+  .profile-image {
+    width: 190px;
+    height: 190px;
+  }
+}
 
-            <div class="col-lg-6">
-              <div class="project-card coming-soon">
-                <div class="project-image">
-                  <div class="project-placeholder">
-                    <i class="fas fa-graduation-cap fa-3x text-muted"></i>
-                    <p class="text-muted mt-2">Capstone Project</p>
-                  </div>
-                  <div class="project-overlay">
-                    <div class="project-links">
-                      <span class="btn btn-secondary btn-sm disabled">Coming Soon</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="project-content">
-                  <h4>Capstone Project</h4>
-                  <p>Academic capstone project showcasing comprehensive system development and technical skills.</p>
-                  <div class="project-tech">
-                    <span class="tech-tag">System Development</span>
-                    <span class="tech-tag">Full-Stack</span>
-                    <span class="tech-tag">Academic</span>
-                    <span class="tech-tag">Capstone</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+@media (max-width: 992px) {
+  .container {
+    max-width: 720px;
+  }
 
-    <!-- Project Modal -->
-    <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="projectModalLabel">Project Details</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="project-modal-content">
-              <!-- Content will be dynamically loaded here -->
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <a href="#" class="btn btn-primary project-drive-link" target="_blank" rel="noopener" style="display: none;">
-              <i class="fab fa-google-drive me-2"></i>View on Google Drive
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+  .hero-content {
+    max-width: 600px;
+    padding: 1.5rem;
+  }
 
-    <!-- Experience Section -->
-    <section id="experience" class="py-5 section-bg">
-      <div class="container">
-        <h2 class="section-title text-center mb-5">Professional Experience</h2>
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-header">
-                <h4>IT Intern</h4>
-                <span class="timeline-company">School Division Office - Valenzuela City</span>
-                <span class="timeline-date">2024 - Present</span>
-              </div>
-              <p>Gaining hands-on experience in IT infrastructure management, system administration, and technical support.</p>
-              <div class="timeline-skills">
-                <span class="skill-tag">System Administration</span>
-                <span class="skill-tag">Technical Support</span>
-                <span class="skill-tag">IT Infrastructure</span>
-                <span class="skill-tag">Problem Solving</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-header">
-                <h4>Freelance Web Developer</h4>
-                <span class="timeline-company">Self-Employed</span>
-                <span class="timeline-date">2023 - Present</span>
-              </div>
-              <p>Developing custom websites and web applications for clients, focusing on responsive design and user experience.</p>
-              <div class="timeline-skills">
-                <span class="skill-tag">PHP</span>
-                <span class="skill-tag">HTML/CSS</span>
-                <span class="skill-tag">JavaScript</span>
-                <span class="skill-tag">Client Communication</span>
-              </div>
-            </div>
-          </div>
+  .profile-image {
+    width: 160px;
+    height: 160px;
+  }
 
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-header">
-                <h4>Creative Content Creator</h4>
-                <span class="timeline-company">Various Projects</span>
-                <span class="timeline-date">2022 - Present</span>
-              </div>
-              <p>Creating digital content including graphics, videos, and 3D models for personal and client projects.</p>
-              <div class="timeline-skills">
-                <span class="skill-tag">Graphic Design</span>
-                <span class="skill-tag">Video Editing</span>
-                <span class="skill-tag">3D Modeling</span>
-                <span class="skill-tag">Creative Design</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-5">
-      <div class="container">
-        <h2 class="section-title text-center mb-5">Get In Touch</h2>
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <div class="contact-info text-center mb-5">
-              <div class="row">
-                <div class="col-md-4 mb-3">
-                  <div class="contact-item">
-                    <i class="fas fa-envelope text-primary mb-2"></i>
-                    <h5>Email</h5>
-                    <p>tsabellano13@gmail.com</p>
-                  </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <div class="contact-item">
-                    <i class="fas fa-map-marker-alt text-primary mb-2"></i>
-                    <h5>Location</h5>
-                    <p>Valenzuela City, Philippines</p>
-                  </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <div class="contact-item">
-                    <i class="fas fa-phone text-primary mb-2"></i>
-                    <h5>Phone</h5>
-                    <p>+63 961 508 2710</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <form id="contactForm" class="contact-form">
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" id="name" name="name" class="form-control" required>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" name="email" class="form-control" required>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="form-group">
-                    <label for="subject" class="form-label">Subject</label>
-                    <input type="text" id="subject" name="subject" class="form-control" required>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="form-group">
-                    <label for="message" class="form-label">Message</label>
-                    <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
-                  </div>
-                </div>
-                <div class="col-12 text-center">
-                  <button type="submit" class="btn btn-primary btn-lg" id="submitButton">
-                    <i class="fas fa-paper-plane me-2"></i>Send Message
-                  </button>
-                  <div id="formMessage" class="alert mt-3" style="display: none;"></div>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+  .hero-subtitle {
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  }
 
-  <footer class="py-4 text-center">
-    <div class="container">
-      <div class="social-links mb-3">
-        <a href="#" class="social-link" aria-label="GitHub">
-          <i class="fab fa-github"></i>
-        </a>
-        <a href="#" class="social-link" aria-label="LinkedIn">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="#" class="social-link" aria-label="Twitter">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a href="#" class="social-link" aria-label="Instagram">
-          <i class="fab fa-instagram"></i>
-        </a>
-      </div>
-      <p class="mb-0">© 2025 Nathaniel Sabellano. All rights reserved.</p>
-    </div>
-  </footer>
+  .hero-description {
+    font-size: 1rem;
+    max-width: 500px;
+  }
+}
 
-  <!-- Bootstrap JS -->
-  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script defer src="js/main.js"></script>
-  <script defer src="js/contact.js"></script>
-</body>
+/* Mobile navigation improvements */
+@media (max-width: 991px) {
+  .navbar {
+    top: 0.5rem !important;
+    left: 1rem !important;
+    right: 1rem !important;
+    transform: none !important;
+    width: auto !important;
+    min-width: auto;
+    max-width: none;
+  }
+  
+  .navbar-collapse {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border-radius: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .navbar-collapse::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border-radius: 1rem;
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  [data-theme="dark"] .navbar-collapse {
+    background: rgba(15, 23, 42, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  [data-theme="dark"] .navbar-collapse::before {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  }
+  
+  .navbar-nav {
+    text-align: center;
+  }
+  
+  .navbar-nav .nav-link {
+    margin: 0.5rem 0;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    background: rgba(37, 99, 235, 0.1);
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  [data-theme="dark"] .navbar-nav .nav-link:hover {
+    background: rgba(59, 130, 246, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+}
 
-</html>
+/* Ensure proper touch targets on mobile */
+@media (max-width: 768px) {
+  .btn, .nav-link, .navbar-toggler {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .navbar-toggler {
+    padding: 0.75rem;
+  }
+  
+  .social-link {
+    min-width: 48px;
+    min-height: 48px;
+  }
+  
+  .feature-item {
+    min-height: 60px;
+  }
+  
+  .skill-card, .project-card {
+    min-height: 200px;
+  }
+  
+  .form-control {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.875rem 1rem;
+  }
+  
+  .contact-item {
+    padding: 1rem;
+  }
+  
+  .contact-item i {
+    font-size: 1.5rem;
+  }
+  
+  .about-stats {
+    padding: 1rem;
+  }
+  
+  .stat-card {
+    padding: 1rem;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  /* FAB mobile adjustments */
+  #themeToggle {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 52px;
+    height: 52px;
+    font-size: 1.1rem;
+  }
+}
+
+/* Landscape orientation adjustments for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero-content {
+    padding: 0.5rem;
+  }
+  
+  .profile-image {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .profile-image-border {
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+  }
+  
+  .hero-title {
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+  }
+  
+  .hero-description {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  
+  section {
+    padding: 2.5rem 0;
+  }
+  
+  .hero-buttons {
+    margin-bottom: 1rem;
+  }
+  
+  .btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 375px) {
+  .hero-content {
+    padding: 0.75rem;
+  }
+  
+  .profile-image {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .hero-description {
+    font-size: 0.9rem;
+  }
+  
+  .section-title {
+    font-size: 1.75rem;
+  }
+  
+  .skill-card, .project-card {
+    padding: 1rem;
+  }
+  
+  .contact-form {
+    padding: 1rem;
+  }
+  
+  .timeline-content {
+    padding: 1rem;
+    width: calc(100% - 40px);
+    left: 40px !important;
+  }
+}
