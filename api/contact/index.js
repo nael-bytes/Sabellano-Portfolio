@@ -1,6 +1,6 @@
 const sgMail = require('@sendgrid/mail');
 
-const SENDGRID_API_KEY = process.env.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 || '';
+const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || '';
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL || 'tsabellano04@gmail.com';
 const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || 'tsabellano13@gmail.com';
 
