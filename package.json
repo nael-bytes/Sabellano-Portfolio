@@ -1,7 +1,5 @@
 {
   "dependencies": {
-    "@sendgrid/mail": "^8.1.5",
-    "express": "^5.1.0",
     "tsparticles": "^3.9.1"
   },
   "name": "sabellano-portfolio",
