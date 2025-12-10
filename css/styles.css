@@ -221,6 +221,18 @@ body.modal-open {
   z-index: 2;
 }
 
+.navbar-brand-logo {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+
+@media (max-width: 576px) {
+  .navbar-brand-logo {
+    height: 28px;
+  }
+}
+
 .navbar-brand:hover {
   transform: translateY(-1px);
   transition: transform 0.3s ease;
@@ -334,6 +346,22 @@ body.modal-open {
   padding-top: 120px;
   /* Add top padding to account for new navbar positioning */
   width: 100%;
+}
+
+#tsparticles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#tsparticles canvas {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  display: block;
 }
 
 .hero-content {
@@ -628,6 +656,8 @@ body.modal-open {
   transition: all .3s ease;
   height: 100%;
   border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
 }
 
 .project-card:hover {
@@ -657,8 +687,31 @@ body.modal-open {
   transition: transform .3s ease;
 }
 
-.project-card:hover .project-image img {
+.project-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: var(--section-bg);
+  transition: transform .3s ease;
+}
+
+.project-card:hover .project-image img,
+.project-card:hover .project-thumbnail {
   transform: scale(1.05);
+}
+
+/* Responsive thumbnail adjustments */
+@media (max-width: 768px) {
+  .project-image {
+    height: 200px;
+  }
+}
+
+@media (max-width: 576px) {
+  .project-image {
+    height: 180px;
+  }
 }
 
 .project-placeholder {
@@ -706,6 +759,9 @@ body.modal-open {
 
 .project-content {
   padding: 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .project-content h4 {
@@ -718,12 +774,18 @@ body.modal-open {
   color: var(--text-muted);
   margin-bottom: 1.5rem;
   line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .project-tech {
   display: flex;
   flex-wrap: wrap;
   gap: .5rem;
+  margin-top: auto;
 }
 
 .tech-tag {
@@ -792,6 +854,62 @@ body.modal-open {
   margin-bottom: 1.5rem;
 }
 
+/* Responsive Embed Container */
+.embed-responsive {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.embed-responsive::before {
+  content: "";
+  display: block;
+  padding-top: 56.25%; /* 16:9 aspect ratio */
+}
+
+.embed-responsive iframe,
+.embed-responsive embed,
+.embed-responsive object,
+.embed-responsive video {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Responsive embed variations */
+.embed-responsive-21by9::before {
+  padding-top: 42.857143%;
+}
+
+.embed-responsive-16by9::before {
+  padding-top: 56.25%;
+}
+
+.embed-responsive-4by3::before {
+  padding-top: 75%;
+}
+
+.embed-responsive-1by1::before {
+  padding-top: 100%;
+}
+
+/* Google Drive embed specific styling */
+.embed-responsive iframe[src*="drive.google.com"] {
+  min-height: 500px;
+}
+
+@media (max-width: 768px) {
+  .embed-responsive iframe[src*="drive.google.com"] {
+    min-height: 400px;
+  }
+}
+
 .project-modal-tech {
   display: flex;
   flex-wrap: wrap;
@@ -812,6 +930,23 @@ body.modal-open {
 /* Theme-aware modal close button */
 [data-theme="dark"] .btn-close {
   filter: invert(1);
+}
+
+/* Modal Description Styling */
+#modalDescription {
+  background: var(--section-bg);
+  border-top: 1px solid var(--border);
+}
+
+#modalDescription h6 {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+#modalDescription p {
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
 }
 
 /* Experience Section */
