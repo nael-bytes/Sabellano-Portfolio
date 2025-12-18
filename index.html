@@ -32,7 +32,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
     rel="stylesheet">
 
   <!-- Favicons -->
@@ -53,7 +53,7 @@
         <a class="navbar-brand fw-bold" href="#home">
           <img src="assets/NB Logo.png" alt="Nael-Bytes logo" class="navbar-brand-logo">Nael-Bytes
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -86,7 +86,7 @@
           <div class="profile-image-border"></div>
         </div>
         <h1 class="hero-title mb-3">Nathaniel Sabellano</h1>
-        <p class="hero-subtitle mb-4">Full-Stack Developer & Creative Professional</p>
+        <p class="hero-subtitle mb-4">I am a <span id="typed-text"></span><span class="typing-cursor">|</span></p>
         <div class="hero-description mb-4">
           <p>Passionate 4th Year BSIT Student specializing in web development, 3D modeling, and multimedia creation.</p>
         </div>
@@ -98,9 +98,9 @@
             <i class="fas fa-envelope me-2"></i>Collaborate
           </a>
         </div>
-        <div class="scroll-indicator mt-5">
+        <a href="#about" class="scroll-indicator mt-5 text-decoration-none text-reset" aria-label="Scroll to About section">
           <i class="fas fa-chevron-down"></i>
-        </div>
+        </a>
       </div>
     </section>
 
@@ -130,8 +130,8 @@
                 <span>Team Collaboration</span>
               </div>
             </div>
-            <div class="mt-4">
-              <a href="resume.pdf" class="btn btn-primary" download>
+            <div class="mt-4 download-button-container">
+              <a href="assets/Nael Bytes CV.pdf" class="btn btn-primary" download>
                 <i class="fas fa-download me-2"></i>Download Resume
               </a>
             </div>
@@ -372,8 +372,8 @@
                   </div>
                 </div>
                 <div class="project-content">
-                  <h4>Design Project 2</h4>
-                  <p>Google Drive-hosted design. Replace the file ID to load your actual image and view it in the modal.</p>
+                  <h4>Announcement Pubmat Template</h4>
+                  <p>This Official Announcement Pubmat Template is a specialized and professionally designed framework tailored for the Schools Division Office to communicate important advisories and official updates with clarity. Developed to meet the specific needs of educational governance, the template provides a clean and structured layout that ensures all announcements ranging from administrative orders and division memorandums to school activity updates remain visually organized and easy to read. By including designated areas for the SDO logo, official seals, and localized branding, it ensures that every piece of public material maintains a formal and authoritative appearance. Optimized for distribution across social media pages and internal networks, this template serves as an essential resource for division personnel to produce polished and consistent communications that keep students, teachers, and stakeholders properly informed.</p>
                   <div class="project-tech">
                     <span class="tech-tag">Design</span>
                     <span class="tech-tag">Graphics</span>
@@ -723,8 +723,36 @@
                   <h4>Gawad Tanglaw Standby Video</h4>
                   <p>The Gawad Tanglaw Standby Video is a continuously looping video presentation designed specifically to be played during intermissions, breaks, or standby periods of the program event. Its primary purpose is to occupy the screen and engage the audience while preventing dead air. The video functions as a visual recognition roll call, featuring a dynamic display of the names and official logos of the 72 DepEd schools located across Valenzuela City. By showcasing these institutional identifiers, the standby video subtly reinforces the unity and comprehensive reach of the Schools Division Office (SDO) and serves as a continuous acknowledgment of all participating institutions throughout the duration of the Gawad Tanglaw program.</p>
                   <div class="project-tech">
+                    <span class="tech-tag">Video Editing</span>
                     <span class="tech-tag">Canva</span>
-                    <span class="tech-tag">Presentation</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Video Project 11 -->
+            <div class="col-lg-6 col-md-6">
+              <div class="project-card" data-embed-type="gdrive" data-embed-id="https://drive.google.com/file/d/1x97xUBYsMOw-M4HfkdhOCLfVXjmqHSj5/view?usp=sharing">
+                <div class="project-image">
+                  <img class="project-thumbnail" src="" alt="Video Project 11" loading="lazy">
+                  <div class="project-placeholder" style="display: none;">
+                    <i class="fas fa-video fa-3x text-primary"></i>
+                    <p class="mt-2">Video 11</p>
+                  </div>
+                  <div class="project-overlay">
+                    <div class="project-links">
+                      <button class="btn btn-light btn-sm project-view-btn">
+                        <i class="fas fa-play me-1"></i>Watch Video
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-content">
+                  <h4>Alternative Learning System Journey</h4>
+                  <p>The Alternative Learning System Journey is a video presentation designed to showcase the transformative impact of the Alternative Learning System (ALS) on students and communities. It highlights the various programs, initiatives, and success stories that have emerged from ALS, emphasizing its role in providing accessible education to underserved populations. The video serves as a visual narrative of how ALS has empowered learners and contributed to educational equity in the region.</p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Video Editing</span>
+                    <span class="tech-tag">CapCut</span>
                   </div>
                 </div>
               </div>
@@ -759,7 +787,7 @@
                   </div>
                 </div>
                 <div class="project-content">
-                  <h4>Traffic  Slight</h4>
+                  <h4>Traffic Slight</h4>
                   <p>The Traffic Slight mobile application is a comprehensive capstone project designed to create a smarter, more efficient commuting experience for motorcycle riders, specifically targeting traffic-heavy urban areas like Valenzuela City. Leveraging the Google Maps API, the app provides live traffic updates and generates optimized route suggestions that balance minimizing travel time with maximizing fuel efficiency. Key rider-focused features include detailed fuel consumption tracking via odometer or automated distance calculation, personalized motorcycle profiles, and critical maintenance alert systems that prompt users for refueling, tuning, and specific oil changes (tracked by distance based on oil type). Furthermore, it integrates current motorcycle fuel prices, which users can report changes to, and provides post-ride trip summaries detailing distance and fuel used. The entire system is managed by an administrative backend that oversees user accounts, data integrations, and fuel price accuracy, ensuring the application remains a reliable, data-driven tool for riders seeking to reduce delays and lower operating costs.</p>
                   <div class="project-tech">
                     <span class="tech-tag">System Development</span>
@@ -904,16 +932,16 @@
   <footer class="py-4 text-center">
     <div class="container">
       <div class="social-links mb-3">
-        <a href="#" class="social-link" aria-label="GitHub">
+        <a href="https://github.com/nael-bytes" class="social-link" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
           <i class="fab fa-github"></i>
         </a>
-        <a href="#" class="social-link" aria-label="LinkedIn">
+        <a href="https://www.linkedin.com/in/nael-bytes" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
           <i class="fab fa-linkedin"></i>
         </a>
-        <a href="#" class="social-link" aria-label="Twitter">
-          <i class="fab fa-twitter"></i>
+        <a href="https://www.facebook.com/txnchii" class="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-facebook"></i>
         </a>
-        <a href="#" class="social-link" aria-label="Instagram">
+        <a href="https://www.instagram.com/n4el.exe/" class="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
           <i class="fab fa-instagram"></i>
         </a>
       </div>
