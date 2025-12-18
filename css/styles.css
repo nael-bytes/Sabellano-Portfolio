@@ -55,7 +55,7 @@ body {
 
 /* Add spacing to prevent overlap with navigation */
 section {
-  padding-top: 6rem; /* Adjust as needed */
+  scroll-margin-top: 3rem;
 }
 
 /* Typography */
@@ -417,9 +417,9 @@ body.modal-open {
   left: -10px;
   right: -10px;
   bottom: -10px;
-  border: 2px solid var(--accent);
+  border: 2px dashed var(--accent);
   border-radius: 50%;
-  opacity: .3;
+  opacity: 0.5;
   animation: rotate 20s linear infinite;
 }
 
@@ -481,11 +481,6 @@ body.modal-open {
 
 .hero-buttons {
   margin-bottom: 2rem;
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
 }
 
 
@@ -617,7 +612,6 @@ body.modal-open {
 }
 
 .stat-number {
-  font-size: 2.5rem;
   font-weight: 800;
   color: var(--accent);
   margin-bottom: .5rem;
@@ -1288,14 +1282,7 @@ footer {
     padding: 1.5rem;
   }
   
-  .hero-buttons {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .hero-buttons .btn {
-  margin: 0;
-  }
+
   
   .download-button-container {
     text-align: center;
