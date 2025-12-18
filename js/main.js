@@ -93,7 +93,7 @@ loadParticles();
 const typedTextSpan = document.getElementById("typed-text");
 const cursorSpan = document.querySelector(".typing-cursor");
 
-const textArray = ["Full-Stack Developer", "Creative Professional", "IT Student", "Multimedia Designer"];
+const textArray = ["Full-Stack Developer", "Video Editor", "Graphic Designer", "Tech Enthusiast"];
 const typingDelay = 100;
 const erasingDelay = 50;
 const newTextDelay = 2000; // Delay between current and next text

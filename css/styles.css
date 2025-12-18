@@ -1244,6 +1244,10 @@ footer {
   transform: translateY(0);
 }
 
+#themeToggle i {
+  margin-right: 0;
+}
+
 /* Dark theme FAB adjustments */
 [data-theme="dark"] #themeToggle {
   background: var(--accent);
