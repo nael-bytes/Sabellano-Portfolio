@@ -1,9 +1,20 @@
 // Light/Dark Mode Toggle
 const themeToggle = document.getElementById('themeToggle');
 themeToggle.addEventListener('click', () => {
-  document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
-  themeToggle.innerHTML = document.body.dataset.theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+  const isDark = document.body.dataset.theme === 'dark'; // Check current state BEFORE toggling? No, the code below toggles it.
+  // Wait, the original code toggles it immediately.
   
+  document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+  const currentTheme = document.body.dataset.theme;
+  
+  themeToggle.innerHTML = currentTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+  
+  // Update Unity Logo
+  const unityLogo = document.getElementById('unity-logo');
+  if (unityLogo) {
+    unityLogo.src = currentTheme === 'dark' ? 'assets/images/unity-logo-dark.png' : 'assets/images/unity-logo-light.png';
+  }
+
   // Reload particles with new theme colors
   loadParticles();
 });
@@ -93,7 +104,7 @@ loadParticles();
 const typedTextSpan = document.getElementById("typed-text");
 const cursorSpan = document.querySelector(".typing-cursor");
 
-const textArray = ["Full-Stack Developer", "Video Editor", "Graphic Designer", "Tech Enthusiast"];
+const textArray = ["Video Editor", "Graphic Designer", "Tech Enthusiast", "Full-Stack Developer"];
 const typingDelay = 100;
 const erasingDelay = 50;
 const newTextDelay = 2000; // Delay between current and next text
